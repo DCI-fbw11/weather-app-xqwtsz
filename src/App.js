@@ -12,30 +12,56 @@ class App extends Component {
       city: "",
       weather: "",
       icon: "",
-      temperature: null
+      temperature: null,
+      error: ""
     };
     this.getWeather = this.getWeather.bind(this);
   }
 
-  getWeather = async event => {
-    const city = event.target.elements.city.value;
+  getWeather = async city => {
+    //const city = event.target.elements.city.value;
     console.log(city);
-    event.preventDefault();
+    let raw;
+    let data;
 
-    const raw = await fetch(
-      `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${key}`
-    );
+    if (!city) {
+      this.setState({
+        city: "",
+        weather: "",
+        icon: ``,
+        temperature: "",
+        error: "No numbers allowed."
+      });
+    } else {
+      try {
+        raw = await fetch(
+          `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${key}`
+        );
 
-    const data = await raw.json();
-
-    console.log(data);
-    this.setState({
-      city: data.name,
-      weather: data.weather[0].main,
-      icon: `http://openweathermap.org/img/w/${data.weather[0].icon}.png`,
-      temperature: Math.round(data.main.temp).toString()
-    });
-    console.log(this.state);
+        data = await raw.json();
+      } catch (err) {
+        console.log(err);
+      }
+      console.log(data);
+      if (data.cod === "404") {
+        this.setState({
+          city: "",
+          weather: "",
+          icon: ``,
+          temperature: "",
+          error: "City not found."
+        });
+      } else {
+        this.setState({
+          city: data.name,
+          weather: data.weather[0].main,
+          icon: `http://openweathermap.org/img/w/${data.weather[0].icon}.png`,
+          temperature: Math.round(data.main.temp).toString() + `℃`,
+          error: ""
+        });
+        console.log(this.state);
+      }
+    }
   };
 
   render() {
@@ -48,6 +74,7 @@ class App extends Component {
           city={this.state.city}
           icon={this.state.icon}
           weather={this.state.weather}
+          error={this.state.error}
         />
       </div>
     );

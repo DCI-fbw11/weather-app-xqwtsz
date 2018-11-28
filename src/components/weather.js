@@ -7,6 +7,7 @@ class Weather extends React.Component {
         <div id="textDiv">
           <h1 id="cityName">{this.props.city}</h1>
           <h2 id="weather">{this.props.weather}</h2>
+          <h1 id="errorText">{this.props.error}</h1>
         </div>
         <div id="miniTempDiv">
           <img
@@ -16,7 +17,6 @@ class Weather extends React.Component {
             width="100px"
             height="100px"
           />
-
           <h1 id="bigTemp">{this.props.temperature}</h1>
         </div>
       </div>

@@ -4,7 +4,7 @@ class Text extends React.Component {
   render() {
     return (
       <div>
-        <h1>Check the Weather!</h1>
+        <h1 id="textJSText">Check the Weather!</h1>
       </div>
     );
   }

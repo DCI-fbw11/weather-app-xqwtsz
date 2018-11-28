@@ -30,12 +30,19 @@ body {
 }
 #render {
   margin-top: 10%;
-
   box-sizing: border-box;
 }
 #render * {
   padding: 0;
   margin: 0;
+}
+#root {
+  padding: 2em;
+  margin-top: 4%;
+  background: darkslateblue;
+  border-radius: 5%;
+  display: flex;
+  align-items: center;
 }
 #weather {
   font-size: 3em;
@@ -48,8 +55,11 @@ body {
 #miniTempDiv {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: left;
 }
 #bigTemp {
-  font-size: 4em;
+  font-size: 3em;
+}
+#errorText {
+  font-size: 1em;
 }

@@ -7,6 +7,7 @@ class Form extends React.Component {
       input: ""
     };
     this.changeHandler = this.changeHandler.bind(this);
+    this.submitForm = this.submitForm.bind(this);
   }
 
   changeHandler(event) {
@@ -15,9 +16,22 @@ class Form extends React.Component {
     });
   }
 
+  submitForm(e) {
+    e.preventDefault();
+    let city = e.target.elements.city.value;
+    let regex = /[0-9]/g;
+    if (regex.test(city)) {
+      city = false;
+    }
+    this.props.submitWeather(city);
+    this.setState({
+      input: ""
+    });
+  }
+
   render() {
     return (
-      <form onSubmit={this.props.submitWeather}>
+      <form onSubmit={this.submitForm}>
         <input
           id="userInput"
           type="text"
